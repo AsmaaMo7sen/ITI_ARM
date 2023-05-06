@@ -6,14 +6,59 @@
 
 
 /*this funcution enable peripheral based on bus and the name of peripheral */
-void RCC_voidEnablePeripheralClock(u8 copy_u8BusID,u8 copy_u8PeripheralID)
+ERROR_STAT_type RCC_voidEnablePeripheralClock(u8 copy_u8BusID,u8 copy_u8PeripheralID)
 {
+	ERROR_STAT_type error_state_local= OK;
+    switch(copy_u8BusID)
+    {
+    case RCC_AHB1:
+    	SET_BIT(RCC_AHB1ENR,copy_u8PeripheralID);
+        return error_state_local;
+    	break;
+    case RCC_AHB2:
+    	SET_BIT(RCC_AHB2ENR,copy_u8PeripheralID);
+		return error_state_local;
+    	break;
+    case RCC_APB1:
+    	SET_BIT(RCC_APB1LPENR,copy_u8PeripheralID);
+		return error_state_local;
+    	break;
+    case RCC_APB2:
+    	SET_BIT(RCC_APB2LPENR,copy_u8PeripheralID);
+		return error_state_local;
+    	break;
+	 default:
+     error_state_local= WRONG_BusID;
+	 return  error_state_local;	
+    }
 
 }
 /*this funcution disable peripheral based on bus and the name of peripheral */
-void RCC_voidDisablePeripheralClock(u8 copy_u8BusID,u8 copy_u8PeripheralID)
+ERROR_STAT_type RCC_voidDisablePeripheralClock(u8 copy_u8BusID,u8 copy_u8PeripheralID)
 {
-
+   	ERROR_STAT_type error_state_local= OK;
+    switch(copy_u8BusID)
+    {
+    case RCC_AHB1:
+    	CLR_BIT(RCC_AHB1ENR,copy_u8PeripheralID);
+        return error_state_local;
+    	break;
+    case RCC_AHB2:
+    	CLR_BIT(RCC_AHB2ENR,copy_u8PeripheralID);
+		return error_state_local;
+    	break;
+    case RCC_APB1:
+    	CLR_BIT(RCC_APB1LPENR,copy_u8PeripheralID);
+		return error_state_local;
+    	break;
+    case RCC_APB2:
+    	CLR_BIT(RCC_APB2LPENR,copy_u8PeripheralID);
+		return error_state_local;
+    	break;
+	 default:
+     error_state_local= WRONG_BusID;
+	 return  error_state_local;	
+    }
 }
 /*this funcution determine system clock */
 void RCC_voidSetSystemClock(void)
