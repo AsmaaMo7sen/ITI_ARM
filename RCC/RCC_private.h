@@ -1,3 +1,10 @@
+/**************************************************************************/
+/*Author      : Hager Hesham										      */
+/*File Name   : RCC_private.h                                             */
+/*Description : This file contains private parameters of RCC module       */
+/*Date        : 7 May 2023                                                */
+/**************************************************************************/
+
 #ifndef RCC_PRIVATE_H_
 #define RCC_PRIVATE_H_
 

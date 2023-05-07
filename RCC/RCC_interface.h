@@ -1,3 +1,9 @@
+/**************************************************************************/
+/*Author      : Hager Hesham										      */
+/*File Name   : RCC_interface.h                                           */
+/*Description : This file contains interfacing parameters of RCC module   */
+/*Date        : 7 May 2023                                                */
+/**************************************************************************/
 #ifndef RCC_INTERFACE_H_
 #define RCC_INTERFACE_H_
 

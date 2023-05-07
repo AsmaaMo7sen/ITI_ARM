@@ -1,10 +1,9 @@
-/*
- * RCC_program.c
- *
- *  Created on: May 6, 2023
- *      Author: Mohamed
- */
-
+/**************************************************************************/
+/*Author      : Hager Hesham										      */
+/*File Name   : RCC_program.c                                             */
+/*Description : This file contains functions' implementation of RCC module*/
+/*Date        : 7 May 2023                                                */
+/**************************************************************************/
 #include "STD_LIB.h"
 #include "BIT_MATH.h"
 #include "RCC_interface.h"
