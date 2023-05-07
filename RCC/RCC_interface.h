@@ -19,8 +19,10 @@
 /*This Enum contains different Error states*/
 typedef enum
 {
-	RightBusID,
-	WrongBusID
+	RightData,
+	WrongBusID,
+	WrongPeripheralID
+
 }RCC_ErrorState_t;
 
 

@@ -48,7 +48,7 @@ void RCC_voidSetSystemClock(void)
 
 RCC_ErrorState_t RCC_u8EnablePeripheralClock(u8 Copy_u8BusID, u8 Copy_u8PeripheralID)
 {
-	RCC_ErrorState_t Local_RCCErrorState = RightBusID;
+	RCC_ErrorState_t Local_RCCErrorState = RightData;
 	switch(Copy_u8BusID)
 	{
 	case RCC_AHB1:
@@ -68,11 +68,21 @@ RCC_ErrorState_t RCC_u8EnablePeripheralClock(u8 Copy_u8BusID, u8 Copy_u8Peripher
 		break;
 
 	}
+	if((Copy_u8PeripheralID>31) || (Copy_u8PeripheralID<0))
+	{
+		Local_RCCErrorState=WrongPeripheralID;
+	}
+	else
+	{
+		/*
+		 * Do Nothing
+		 */
+	}
 	return Local_RCCErrorState;
 }
 RCC_ErrorState_t RCC_voidDisablePeripheralClock(u8 Copy_u8BusID, u8 Copy_u8PeripheralID)
 {
-	RCC_ErrorState_t Local_RCCErrorState = RightBusID;
+	RCC_ErrorState_t Local_RCCErrorState = RightData;
 	switch(Copy_u8BusID)
 	{
 	case RCC_AHB1:
@@ -90,6 +100,16 @@ RCC_ErrorState_t RCC_voidDisablePeripheralClock(u8 Copy_u8BusID, u8 Copy_u8Perip
 	default: /*Return error state*/
 		Local_RCCErrorState = WrongBusID; //change error state to error bus id
 		break;
+	}
+	if((Copy_u8PeripheralID>31) || (Copy_u8PeripheralID<0))
+	{
+		Local_RCCErrorState=WrongPeripheralID;
+	}
+	else
+	{
+		/*
+		 * Do Nothing
+		 */
 	}
 	return Local_RCCErrorState;
 }
