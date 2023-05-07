@@ -63,25 +63,25 @@ ERROR_STAT_type RCC_voidDisablePeripheralClock(u8 copy_u8BusID,u8 copy_u8Periphe
 /*this funcution determine system clock */
 void RCC_voidSetSystemClock(void)
 {
-#if SYSTEM_CLK_CRC ==  HSI
+#if SYSTEM_CLK_SRC ==  HSI
 	SET_BIT(RCC_CR,0);    //enable HSI clock (16MHz)
 
 	CLR_BIT(RCC_CFGR,0);  //select HSI as system clock source
 	CLR_BIT(RCC_CFGR,1);
 
-#elif SYSTEM_CLK_CRC ==  HSE_RC
+#elif SYSTEM_CLK_SRC ==  HSE_RC
 	SET_BIT(RCC_CR,16);    //enable HSE_RC clock
 	SET_BIT(RCC_CR,18);    //choose Rc external (enable by pass mode)
 
 	SET_BIT(RCC_CFGR,0);  //select HSE_RC as system clock source
 	CLR_BIT(RCC_CFGR,1);
-#elif SYSTEM_CLK_CRC ==  HSE_CRYSTAL
+#elif SYSTEM_CLK_SRC ==  HSE_CRYSTAL
 	SET_BIT(RCC_CR,16);    //enable HSE_RC clock
 	CLR_BIT(RCC_CR,18);    ////choose crystal external (disable by pass mode)
 
 	SET_BIT(RCC_CFGR,0);  //select HSE_CRYSTAL as system clock source
 	CLR_BIT(RCC_CFGR,1);
-#elif SYSTEM_CLK_CRC ==  PLL
+#elif SYSTEM_CLK_SRC ==  PLL
 
 #else
 #error ("wrong system clock configration")
