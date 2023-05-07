@@ -52,46 +52,36 @@ u8 RCC_u8enablePrepheralClock(u8 Copy_u8BUS_ID,u8 Copy_u8Peripheral_ID){
 	case RCC_AHB1 :
 		SET_BIT(RCC_AHB1ENR,Copy_u8Peripheral_ID);
 		break;
-
-
-
-
-
-
+	case RCC_AHB2 :
+			SET_BIT(RCC_AHB2ENR,Copy_u8Peripheral_ID);
+			break;
+	case RCC_APB1 :
+			SET_BIT(RCC_APB1ENR,Copy_u8Peripheral_ID);
+			break;
+	case RCC_APB2 :
+			SET_BIT(RCC_APB2ENR,Copy_u8Peripheral_ID);
+			break;
 
 	}
-
-
-
-
-
-
 	return 0;
 }
 u8 RCC_u8DisablePrepheralClock(u8 Copy_u8BUS_ID,u8 Copy_u8Peripheral_ID){
 	switch(Copy_u8BUS_ID){
 
 		case RCC_AHB1 :
-			SET_BIT(RCC_AHB1ENR,Copy_u8Peripheral_ID);
+			CLR_BIT(RCC_AHB1ENR,Copy_u8Peripheral_ID);
 			break;
-
-
-
-
-
-
+		case RCC_AHB2 :
+				CLR_BIT(RCC_AHB2ENR,Copy_u8Peripheral_ID);
+				break;
+		case RCC_APB1 :
+				CLR_BIT(RCC_APB1ENR,Copy_u8Peripheral_ID);
+				break;
+		case RCC_APB2 :
+			CLR_BIT(RCC_APB2ENR,Copy_u8Peripheral_ID);
+				break;
 
 		}
-
-
-
-
-
-
-
-
-
-
-return 0;
+		return 0;
 
 }
