@@ -49,67 +49,61 @@ void RCC_voidSetSystemClock(void)
 RCC_ErrorState_t RCC_u8EnablePeripheralClock(u8 Copy_u8BusID, u8 Copy_u8PeripheralID)
 {
 	RCC_ErrorState_t Local_RCCErrorState = RightData;
-	switch(Copy_u8BusID)
-	{
-	case RCC_AHB1:
-		SET_BIT(RCC_AHB1ENR,Copy_u8PeripheralID); //Enable specific peripheral on AHB1 protocol
-		break;
-	case RCC_AHB2:
-		SET_BIT(RCC_AHB2ENR,Copy_u8PeripheralID); //Enable specific peripheral on AHB2 protocol
-		break;
-	case RCC_APB1:
-		SET_BIT(RCC_APB1ENR,Copy_u8PeripheralID); //Enable specific peripheral on APB1 protocol
-		break;
-	case RCC_APB2:
-		SET_BIT(RCC_APB2ENR,Copy_u8PeripheralID); //Enable specific peripheral on APB2 protocol
-		break;
-	default: /*Return error state*/
-		Local_RCCErrorState = WrongBusID; //change error state to error bus id
-		break;
-
-	}
 	if((Copy_u8PeripheralID>31) || (Copy_u8PeripheralID<0))
 	{
 		Local_RCCErrorState=WrongPeripheralID;
 	}
 	else
 	{
-		/*
-		 * Do Nothing
-		 */
+		switch(Copy_u8BusID)
+		{
+		case RCC_AHB1:
+			SET_BIT(RCC_AHB1ENR,Copy_u8PeripheralID); //Enable specific peripheral on AHB1 protocol
+			break;
+		case RCC_AHB2:
+			SET_BIT(RCC_AHB2ENR,Copy_u8PeripheralID); //Enable specific peripheral on AHB2 protocol
+			break;
+		case RCC_APB1:
+			SET_BIT(RCC_APB1ENR,Copy_u8PeripheralID); //Enable specific peripheral on APB1 protocol
+			break;
+		case RCC_APB2:
+			SET_BIT(RCC_APB2ENR,Copy_u8PeripheralID); //Enable specific peripheral on APB2 protocol
+			break;
+		default: /*Return error state*/
+			Local_RCCErrorState = WrongBusID; //change error state to error bus id
+			break;
+
+		}
 	}
 	return Local_RCCErrorState;
 }
 RCC_ErrorState_t RCC_voidDisablePeripheralClock(u8 Copy_u8BusID, u8 Copy_u8PeripheralID)
 {
 	RCC_ErrorState_t Local_RCCErrorState = RightData;
-	switch(Copy_u8BusID)
-	{
-	case RCC_AHB1:
-		CLR_BIT(RCC_AHB1ENR,Copy_u8PeripheralID); //Disable specific peripheral on AHB1 protocol
-		break;
-	case RCC_AHB2:
-		CLR_BIT(RCC_AHB2ENR,Copy_u8PeripheralID); //Disable specific peripheral on AHB2 protocol
-		break;
-	case RCC_APB1:
-		CLR_BIT(RCC_APB1ENR,Copy_u8PeripheralID); //Disable specific peripheral on APB1 protocol
-		break;
-	case RCC_APB2:
-		CLR_BIT(RCC_APB2ENR,Copy_u8PeripheralID); //Disable specific peripheral on APB2 protocol
-		break;
-	default: /*Return error state*/
-		Local_RCCErrorState = WrongBusID; //change error state to error bus id
-		break;
-	}
 	if((Copy_u8PeripheralID>31) || (Copy_u8PeripheralID<0))
 	{
 		Local_RCCErrorState=WrongPeripheralID;
 	}
 	else
 	{
-		/*
-		 * Do Nothing
-		 */
+		switch(Copy_u8BusID)
+		{
+		case RCC_AHB1:
+			CLR_BIT(RCC_AHB1ENR,Copy_u8PeripheralID); //Disable specific peripheral on AHB1 protocol
+			break;
+		case RCC_AHB2:
+			CLR_BIT(RCC_AHB2ENR,Copy_u8PeripheralID); //Disable specific peripheral on AHB2 protocol
+			break;
+		case RCC_APB1:
+			CLR_BIT(RCC_APB1ENR,Copy_u8PeripheralID); //Disable specific peripheral on APB1 protocol
+			break;
+		case RCC_APB2:
+			CLR_BIT(RCC_APB2ENR,Copy_u8PeripheralID); //Disable specific peripheral on APB2 protocol
+			break;
+		default: /*Return error state*/
+			Local_RCCErrorState = WrongBusID; //change error state to error bus id
+			break;
+		}
 	}
 	return Local_RCCErrorState;
 }
