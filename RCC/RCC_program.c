@@ -13,55 +13,69 @@
 #include "RCC_private.h"
 #include "RCC_config.h"
 
-void RCC_voidEnablePeripheralClock(u8 copy_u8BusID, u8 copy_u8PeripheralID)
+Error_t RCC_voidEnablePeripheralClock(u8 copy_u8BusID, u8 copy_u8PeripheralID)
 {
-	switch(copy_u8BusID)
+	if((copy_u8PeripheralID>=0) && (copy_u8PeripheralID<=32))
 	{
-	case RCC_ABH1:
-		SET_BIT(RCC_AHB1ENR, copy_u8PeripheralID);
-		break;
+		switch(copy_u8BusID)
+		{
+		case RCC_ABH1:
+			SET_BIT(RCC_AHB1ENR, copy_u8PeripheralID);
+			return OK;
+			break;
 
-	case RCC_ABH2:
-		SET_BIT(RCC_AHB2ENR, copy_u8PeripheralID);
-		break;
+		case RCC_ABH2:
+			SET_BIT(RCC_AHB2ENR, copy_u8PeripheralID);
+			return OK;
+			break;
 
-	case RCC_APB1:
-		SET_BIT(RCC_APB1ENR, copy_u8PeripheralID);
-		break;
+		case RCC_APB1:
+			SET_BIT(RCC_APB1ENR, copy_u8PeripheralID);
+			return OK;
+			break;
 
-	case RCC_APB2:
-		SET_BIT(RCC_APB2ENR, copy_u8PeripheralID);
-		break;
+		case RCC_APB2:
+			SET_BIT(RCC_APB2ENR, copy_u8PeripheralID);
+			return OK;
+			break;
 
-	default:
-		/*return error state*/
-		break;
+		default:
+			return InvalidBusID;
+			break;
+		}
 	}
 }
 
-void RCC_voidDisablePeripheralClock(u8 copy_u8BusID, u8 copy_u8PeripheralID)
+Error_t RCC_voidDisablePeripheralClock(u8 copy_u8BusID, u8 copy_u8PeripheralID)
 {
-	switch(copy_u8BusID)
+	if((copy_u8PeripheralID>=0) && (copy_u8PeripheralID<=32))
 	{
-	case RCC_ABH1:
-		CLR_BIT(RCC_AHB1ENR, copy_u8PeripheralID);
-		break;
+		switch(copy_u8BusID)
+		{
+		case RCC_ABH1:
+			CLR_BIT(RCC_AHB1ENR, copy_u8PeripheralID);
+			return OK;
+			break;
 
-	case RCC_ABH2:
-		CLR_BIT(RCC_AHB2ENR, copy_u8PeripheralID);
-		break;
+		case RCC_ABH2:
+			CLR_BIT(RCC_AHB2ENR, copy_u8PeripheralID);
+			return OK;
+			break;
 
-	case RCC_APB1:
-		CLR_BIT(RCC_APB1ENR, copy_u8PeripheralID);
-		break;
+		case RCC_APB1:
+			CLR_BIT(RCC_APB1ENR, copy_u8PeripheralID);
+			return OK;
+			break;
 
-	case RCC_APB2:
-		CLR_BIT(RCC_APB2ENR, copy_u8PeripheralID);
-		break;
+		case RCC_APB2:
+			CLR_BIT(RCC_APB2ENR, copy_u8PeripheralID);
+			return OK;
+			break;
 
-	default:
-		/*return error state*/
-		break;
+		default:
+			return InvalidBusID;
+			break;
+		}
 	}
 }
 

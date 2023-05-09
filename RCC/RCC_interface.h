@@ -62,10 +62,10 @@
 
 //Functions prototypes
 /*This function is used to Enable a certain peripheral's clock*/
-void RCC_voidEnablePeripheralClock(u8 copy_u8BusID, u8 copy_u8PeripheralID);
+Error_t RCC_voidEnablePeripheralClock(u8 copy_u8BusID, u8 copy_u8PeripheralID);
 
 /*This function is used to Disable a certain peripheral's clock*/
-void RCC_voidDisablePeripheralClock(u8 copy_u8BusID, u8 copy_u8PeripheralID);
+Error_t RCC_voidDisablePeripheralClock(u8 copy_u8BusID, u8 copy_u8PeripheralID);
 
 /*This function is used to set the system's clock clock*/
 void RCC_voidSetSystemClock(void);

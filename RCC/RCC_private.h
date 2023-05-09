@@ -16,6 +16,14 @@
 #define HSE_CRYSTAL	   3
 #define PLL      	   4
 
+//Private error state enum
+typedef enum
+{
+	InvalidPeripheralID,
+	InvalidBusID,
+	OK
+}Error_t;
+
 //RCC registers
 /*RCC clock control register*/
 #define       RCC_CR           *((volatile u32 *)(0x40023800))
