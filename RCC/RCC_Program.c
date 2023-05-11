@@ -61,6 +61,8 @@ u8 RCC_u8enablePrepheralClock(u8 Copy_u8BUS_ID,u8 Copy_u8Peripheral_ID){
 	case RCC_APB2 :
 			SET_BIT(RCC_APB2ENR,Copy_u8Peripheral_ID);
 			break;
+	default:
+		return 1;
 
 	}
 	return 0;
@@ -80,6 +82,9 @@ u8 RCC_u8DisablePrepheralClock(u8 Copy_u8BUS_ID,u8 Copy_u8Peripheral_ID){
 		case RCC_APB2 :
 			CLR_BIT(RCC_APB2ENR,Copy_u8Peripheral_ID);
 				break;
+		default:
+				return 1;
+
 
 		}
 		return 0;
