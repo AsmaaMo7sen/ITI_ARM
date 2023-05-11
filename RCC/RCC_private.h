@@ -68,7 +68,7 @@
 /******************		PLL Types	*********************/
 #define RCC_PLL_IN_HSI_DIV_2	0
 #define RCC_PLL_IN_HSE_DIV_2	1
-#define RCC_PLL_IN_HSE_DIV_2	2
+#define RCC_PLL_IN_HSE_DIV 		2
 
 
 

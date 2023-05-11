@@ -9,6 +9,17 @@
 #define RCC_INTERFACE_H_
 
 
+/*enum error state */
+
+typedef enum errorState{
+	ok, 								/*The function run will */
+	EnableClockError_invalidPort,		/*Error in the Enable clock function */
+	EnableClockError_invalidPin,		/*Error in the Enable clock function */
+	DisableClockError_invalidPort,		/*Error in the Disable clock function */
+	DisableClockError_invalidPin,		/*Error in the Disable clock function */
+
+}ErrorState;
+
 /*for define which bus peripheral to enable  */
 #define  RCC_AHB1   0
 #define  RCC_AHB2	1
@@ -28,7 +39,7 @@
 #define  AHB1_DMA2 		22
 
 /* For bus AHB2 */
-#define  AHB2_OTGFS	7
+#define  AHB2_OTGFS		7
 
 
 /* For bus APB1 */
@@ -74,12 +85,12 @@
  *	 is the pin number of the peripheral in the data sheet
  * */
 
-void RCC_VoidEnableClock(u8 Copy_u8BusId ,  u8  Copy_u8PeriphId);
+ErrorState RCC_ErrorStateEnableClock(u8 Copy_u8BusId ,  u8  Copy_u8PeriphId);
 
-void RCC_VoidDisableClock(u8 Copy_u8BusId ,  u8  Copy_u8PeriphId);
+ErrorState RCC_ErrorStateDisableClock(u8 Copy_u8BusId ,  u8  Copy_u8PeriphId);
 
 /*Prebuild Config */
-void RCC_voidInitSysClk(void);
+ErrorState RCC_ErrorStateInitSysClk(void);
 
 
 

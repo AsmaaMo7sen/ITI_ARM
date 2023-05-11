@@ -6,63 +6,65 @@
 /**********************************************************************/
 
 
-#include "STD_TYPES.h"
-#include "BIT_MATH.h"
+#include "../../LIB/STD_TYPES.h"
+#include "../../LIB/BIT_MATH.h"
 
 #include "RCC_interface.h"
 #include "RCC_private.h"
 #include "RCC_config.h"
 
 
-void RCC_VoidEnableClock(u8 Copy_u8BusId ,  u8  Copy_u8PeriphId)
+ErrorState RCC_ErrorStateEnableClock(u8 Copy_u8BusId ,  u8  Copy_u8PeriphId)
 {
+	ErrorState Local_u8ErrorState = ok ;
 	if(Copy_u8PeriphId <= 31  )
 	{
 		switch(Copy_u8BusId)
 		{
 
-			case RCC_AHB1   : SET_BIT(RCC_AHB1ENR  , Copy_u8PeriphId);  break;
-			case RCC_AHB2   : SET_BIT(RCC_AHB2ENR  , Copy_u8PeriphId); 	break;
-			case RCC_APB1   : SET_BIT(RCC_APB1ENR  , Copy_u8PeriphId); 	break;
-			case RCC_APB2   : SET_BIT(RCC_APB2ENR  , Copy_u8PeriphId); 	break;
-
-			/*default		   : /*return error  */				/*			break; 	*/	
+			case RCC_AHB1   : SET_BIT(RCC_AHB1ENR  , Copy_u8PeriphId); 			    break;
+			case RCC_AHB2   : SET_BIT(RCC_AHB2ENR  , Copy_u8PeriphId); 				break;
+			case RCC_APB1   : SET_BIT(RCC_APB1ENR  , Copy_u8PeriphId); 				break;
+			case RCC_APB2   : SET_BIT(RCC_APB2ENR  , Copy_u8PeriphId); 				break;
+			default		    : Local_u8ErrorState = EnableClockError_invalidPort		break;
 		}
 	}
 	else 
 	{
 		/*return error */
+		Local_u8ErrorState = EnableClockError_invalidPin;
 	}
-	
+	return Local_u8ErrorState ;
 	
 }
-void RCC_VoidDisableClock(u8 Copy_u8BusId ,  u8  Copy_u8PeriphId)
+ErrorState RCC_ErrorStateDisableClock(u8 Copy_u8BusId ,  u8  Copy_u8PeriphId)
 {
+	ErrorState Local_u8ErrorState = ok ;
 	if(Copy_u8PeriphId <= 31)
 	{
 		switch(Copy_u8BusId)
 		{
 
-			case RCC_AHB1   : CLR_BIT(RCC_AHB1ENR  , Copy_u8PeriphId);  break;
-			case RCC_AHB2   : CLR_BIT(RCC_AHB2ENR  , Copy_u8PeriphId); 	break;
-			case RCC_APB1   : CLR_BIT(RCC_APB1ENR  , Copy_u8PeriphId); 	break;
-			case RCC_APB2   : CLR_BIT(RCC_APB2ENR  , Copy_u8PeriphId); 	break;
+			case RCC_AHB1   : CLR_BIT(RCC_AHB1ENR  , Copy_u8PeriphId);                  break;
+			case RCC_AHB2   : CLR_BIT(RCC_AHB2ENR  , Copy_u8PeriphId);                 	break;
+			case RCC_APB1   : CLR_BIT(RCC_APB1ENR  , Copy_u8PeriphId);                 	break;
+			case RCC_APB2   : CLR_BIT(RCC_APB2ENR  , Copy_u8PeriphId);                 	break;
+			default		    : Local_u8ErrorState = DisableClockError_invalidPort		break;
 
-
-			/*default		   : /*return error  */				/*			break; 	*/	
 		}
 	}
 	else 
 	{
 		/*return error */
+		Local_u8ErrorState	= DisableClockError_invalidPin;
 	}
 	
-	
+	return Local_u8ErrorState ;
 }
 
 
 /*Prebuild Config */
-void RCC_voidInitSysClk(void)
+ErrorState RCC_ErrorStateInitSysClk(void)
 {	
 	#if RCC_CLOCK_TYPE	==	RCC_HSE_CRYSTAL
 	
@@ -115,4 +117,6 @@ void RCC_voidInitSysClk(void)
 		#error("You choosed wrong clock type ")
 
 	#endif
+
+
 }
