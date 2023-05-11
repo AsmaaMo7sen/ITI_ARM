@@ -6,8 +6,8 @@
  */
 
 
-#include "STD_LIB.h"
-#include "BIT_MATHS.h"
+#include "../../LIB/STD_LIB.h"
+#include "../../LIB/BIT_MATHS.h"
 
 #include "RCC_interface.h"
 #include "RCC_private.h"
@@ -18,7 +18,7 @@ RCC_ErrorState_t RCC_voidEnablePeripheralClock(u8 Copy_u8BusID , u8 Copy_u8Perip
 {
 	/* enum initially ok */
 	RCC_ErrorState_t Local_ErrorState = OK;
-	if((Copy_u8PeripheralID>0)&&(Copy_u8PeripheralID<31))
+	if((Copy_u8PeripheralID>=0)&&(Copy_u8PeripheralID<=31))
 	{
 
 		switch(Copy_u8BusID)
@@ -54,7 +54,7 @@ RCC_ErrorState_t RCC_voidDisablePeripheralClock(u8 Copy_u8BusID , u8 Copy_u8Peri
 {
 	/* enum initially ok */
 	RCC_ErrorState_t Local_ErrorState = OK;
-	if((Copy_u8PeripheralID>0)&&(Copy_u8PeripheralID<31))
+	if((Copy_u8PeripheralID>=0)&&(Copy_u8PeripheralID<=31))
 	{
 		switch(Copy_u8BusID)
 		{

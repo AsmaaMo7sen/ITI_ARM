@@ -167,7 +167,7 @@
 #define RCC_CSR                       *((volatile u32 *)(0x40023874))
 #define RCC_SSCGR                     *((volatile u32 *)(0x40023880))
 #define RCC_PLLI2SCFG                 *((volatile u32 *)(0x40023884))
-#define RCC_DCKCFGR                  *((volatile u32 *)(0x40023892))
+#define RCC_DCKCFGR                   *((volatile u32 *)(0x40023892))
 
 
 
