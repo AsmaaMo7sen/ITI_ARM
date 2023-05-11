@@ -13,7 +13,7 @@
 /*********************************************************************************/
 
 /*THIS MACRO IS TO CONFIG system clock source*/
-/*available configration : 	HSI
+/*available configurations : 	HSI
  * 							HSE_RC
  * 							HSE_CRYSTAL
  * 							PLL*/

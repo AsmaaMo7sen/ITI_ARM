@@ -20,17 +20,33 @@
 
 #define AHB1_GPIOH		7
 
+#define MAX_PERIPHIRAL	31
+
 /***********************************************************************************/
 /**************************** Functions prototypes ********************************/
 /*********************************************************************************/
 
 /*this function should enable the peripheral clock*/
-void RCC_voidEnablePeripheralClock(u8 Copy_u8BusID, u8 Copy_PeripheralID);
+RCC_ErrorStatus RCC_voidEnablePeripheralClock(u8 Copy_u8BusID, u8 Copy_PeripheralID);
 
 /*this function should disable the peripheral clock*/
-void RCC_voidDisablePeripheralClock(u8 Copy_u8BusID, u8 Copy_PeripheralID);
+RCC_ErrorStatus RCC_voidDisablePeripheralClock(u8 Copy_u8BusID, u8 Copy_PeripheralID);
 
+/*this function should choose the clock that system will use*/
 void RCC_voidSetSysClock(void);
+
+
+/***********************************************************************************/
+/**************************** Enum for Error state ********************************/
+/*********************************************************************************/
+typedef enum
+{
+	NoError,
+	WrongPeripheral,
+	WrongBus,
+}RCC_ErrorStatus;
+
+
 
 
 #endif
