@@ -19,6 +19,13 @@
 #define	HSE_CRYSTAL 3
 #define	PLL         4
 
+/*    Error States     */
+typedef enum
+{
+	OK,
+	Wrong_bus_ID,
+	Wrong_Peripheral_ID
+}Error_State_e;
 
 /*    RCC Registers    */
 
@@ -54,15 +61,15 @@ typedef struct
 	volatile u32 RCC_RESERVED12;
 	volatile u32 RCC_BDCR;
 	volatile u32 RCC_CSR;
-	volatile u32 RCC_RESERVED11;
-	volatile u32 RCC_RESERVED12;
+	volatile u32 RCC_RESERVED13;
+	volatile u32 RCC_RESERVED14;
 	volatile u32 RCC_SSRCG;
 	volatile u32 RCC_PLLI2SCFGR;
-	volatile u32 RCC_RESERVED13;
+	volatile u32 RCC_RESERVED15;
 	volatile u32 RCC_DCKCFGR;
 } RCC_RegDef_t;
 
-#define RCC  ((RCC_RegDef_t*)0x40023800)
+#define RCC  ((volatile RCC_RegDef_t *)0x40023800)
 
 
 #endif
