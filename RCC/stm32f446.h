@@ -11,6 +11,11 @@
 #include <stdint.h>
 #define __vo volatile
 
+#define SET		1
+#define RESET	0
+#define ENABLE	SET
+#define DISABLE	RESET
+
 /*
  * AHBx and APBx Bus Peripheral base addresses
  */
@@ -40,15 +45,15 @@
 
 typedef struct
 {
-	__vo uint32_t MODER;                        /*!< GPIO port mode register,                    	Address offset: 0x00      */
-	__vo uint32_t OTYPER;                       /*!<  ,     										Address offset: 0x04      */
-	__vo uint32_t OSPEEDR;
+	__vo uint32_t MODER;                 /*!< GPIO port mode register,      Address offset: 0x00      */
+	__vo uint32_t OTYPER;                /*!<  TYPE OF OUTPUT PINS     		Address offset: 0x04      */
+	__vo uint32_t OSPEEDR;					/*	*/
 	__vo uint32_t PUPDR;
 	__vo uint32_t IDR;
 	__vo uint32_t ODR;
 	__vo uint32_t BSRR;
 	__vo uint32_t LCKR;
-	__vo uint32_t AFR[2];					 /*!< AFR[0] : GPIO alternate function low register, AF[1] : GPIO alternate function high register    		Address offset: 0x20-0x24 */
+	__vo uint32_t AFR[2];				/*!< AFR[0] : GPIO alternate function low register, AF[1] : GPIO alternate function high register    		Address offset: 0x20-0x24 */
 }GPIO_RegDef_t;
 
 /*
