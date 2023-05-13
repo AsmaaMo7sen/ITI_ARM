@@ -28,8 +28,22 @@
 #define GPIO_PD					2
 
 
-
-
+#define GPIO_AF1				0
+#define GPIO_AF2				1
+#define GPIO_AF3				2
+#define GPIO_AF4				3
+#define GPIO_AF5				4
+#define GPIO_AF6				5
+#define GPIO_AF7				6
+#define GPIO_AF8				7
+#define GPIO_AF9				8
+#define GPIO_AF10				9
+#define GPIO_AF11				10
+#define GPIO_AF12				11
+#define GPIO_AF13				12
+#define GPIO_AF14				13
+#define GPIO_AF15				14
+#define GPIO_AF16				15
 
 typedef struct
 {
@@ -56,4 +70,6 @@ uint8_t GPIO_ReadFromPin(GPIO_RegDef_t *pGPIOx,uint8_t PinNumber);
 void GPIO_TogglePin(GPIO_RegDef_t *pGPIOx,uint8_t PinNumber);
 uint16_t GPIO_ReadFromPort(GPIO_RegDef_t *pGPIOx);
 void GPIO_WriteToPort(GPIO_RegDef_t *pGPIOx,uint16_t value);
+
+void GPIO_WriteToPinFAST(GPIO_RegDef_t *pGPIOx,uint8_t PinNumber,uint8_t value);
 #endif /* GPIO_STM32F446_GPIO_H_ */

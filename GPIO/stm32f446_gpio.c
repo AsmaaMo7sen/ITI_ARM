@@ -74,7 +74,17 @@ void GPIO_Init(GPIO_Handle_t *pGPIO_Handle)
 	pGPIO_Handle->pGPIOx->PUPDR |= temp;
 
 
-	/*Alternate MODE later */
+	/*Alternate MODE  */
+	if(pGPIO_Handle->GPIO_Config.Mode==GPIO_MODE_ALF)
+	{
+		uint8_t temp1,temp2;
+
+		temp1=(pGPIO_Handle->GPIO_Config.PinNumber)/8;
+		temp2=(pGPIO_Handle->GPIO_Config.PinNumber)%8;
+
+		pGPIO_Handle->pGPIOx->AFR[temp1] &= ~(0xF<<temp2*4);
+		pGPIO_Handle->pGPIOx->AFR[temp1] |= (pGPIO_Handle->GPIO_Config.ALF<<4*temp2);
+	}
 
 	/*External Interrupt Later*/
 }
@@ -92,7 +102,18 @@ void GPIO_WriteToPort(GPIO_RegDef_t *pGPIOx,uint16_t value)
 {
 	pGPIOx->ODR =value;
 }
+void GPIO_WriteToPinFAST(GPIO_RegDef_t *pGPIOx,uint8_t PinNumber,uint8_t value)
+{
+	if(value==ENABLE)
+	{
+		pGPIOx->BSRR |=(1<<PinNumber);
+	}
+	else if(value==DISABLE)
+	{
+		pGPIOx->BSRR |=(1<<(PinNumber+16));
 
+	}
+}
 uint8_t GPIO_ReadFromPin(GPIO_RegDef_t *pGPIOx,uint8_t PinNumber)
 {
 	if((pGPIOx->IDR>>PinNumber) & (0x1))
