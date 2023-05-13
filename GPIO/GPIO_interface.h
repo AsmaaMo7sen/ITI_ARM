@@ -44,6 +44,17 @@ void GPIO_voidSetOutPinValue(u8 Copy_u8PortID , u8 Copy_u8PinID
 /*This function is to get the value of ant input pin*/
 u8 GPIO_u8GetInputPinValue(u8 Copy_u8PortID , u8 Copy_u8PinID);
 
+void GPIO_voidSetOutPinValueFast(u8 Copy_u8PortID , u8 Copy_u8PinID
+								, u8 Copy_u8Value);
+
+
+/*TODO*/
+void GPIO_voidInitOutputPort(u8 Copy_u8PortID,u8 Copy_u8PortType , u8 Copy_u8PortSpeed);
+void GPIO_voidSetOutPortValue(u8 Copy_u8PortID  , u16 Copy_u16PortValue);
+
+/*TODO*/
+void GPIO_voidSetAlterativeFunction(u8 Copy_u8PortID , u8 Copy_u8PinID
+									, u8 Copy_u8AlternativeFunction);
 
 
 #endif /* MCAL_GPIO_GPIO_INTERFACE_H_ */

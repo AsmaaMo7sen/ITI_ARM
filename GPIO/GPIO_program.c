@@ -36,7 +36,24 @@ void GPIO_voidInitOutputPin(u8 Copy_u8PortID ,u8 Copy_u8PinID,u8 Copy_u8PinType 
 
 void GPIO_voidInitInputPin(u8 Copy_u8PortID , u8 Copy_u8PinID,u8 Copy_u8PullMode )
 {
+	switch(Copy_u8PortID)
+	{
+		   case GPIO_PORTA :
+			   /*configure the pin to be input*/
+			   /*mode register*/
+			   GPIOA->MODER &= ~(0b11<<(Copy_u8PinID*2));
 
+			   /*configure pull type*/
+			   GPIOA->PUPDR &= ~(0b11<<(Copy_u8PinID*2));
+			   GPIOA->PUPDR |= (Copy_u8PullMode <<(Copy_u8PinID*2));
+				break ;
+
+			case GPIO_PORTB :
+				break ;
+
+			case GPIO_PORTC :
+				break ;
+	}
 }
 void GPIO_voidSetOutPinValue(u8 Copy_u8PortID ,u8 Copy_u8PinID,u8 Copy_u8Value)
 {
@@ -58,7 +75,58 @@ void GPIO_voidSetOutPinValue(u8 Copy_u8PortID ,u8 Copy_u8PinID,u8 Copy_u8Value)
 
 u8 GPIO_u8GetInputPinValue(u8 Copy_u8PortID , u8 Copy_u8PinID)
 {
+	/*local variable to store the value of input pin*/
+	u8 Local_u8InputPinValue ;
+
+	switch(Copy_u8PortID)
+	{
+		case GPIO_PORTA :
+			Local_u8InputPinValue = GET_BIT(GPIOA->IDR , Copy_u8PinID);
+			break ;
+
+		case GPIO_PORTB :
+			break ;
+
+		case GPIO_PORTC :
+			break ;
+	}
+
+	return Local_u8InputPinValue ;
+}
+
+void GPIO_voidSetOutPinValueFast(u8 Copy_u8PortID , u8 Copy_u8PinID
+								, u8 Copy_u8Value)
+{
+	u32 Local_u32RegisterValue ;
+
+	switch(Copy_u8PortID)
+	{
+		case GPIO_PORTA :
+			switch (Copy_u8Value) {
+				/*Set the pin value*/
+				/*access bits from 0 to 15*/
+				case GPIO_OUTPUT_HIGH:
+					Local_u32RegisterValue = 1<<Copy_u8PinID ;
+					break;
+
+				/*Reset the pin value*/
+				/*access bits from 16 to 31*/
+				case GPIO_OUTPUT_LOW:
+					Local_u32RegisterValue = 1<<(Copy_u8PinID+16) ;
+					break;
+			}
+
+			GPIOA->BSRR = Local_u32RegisterValue ;
+			break ;
+
+		case GPIO_PORTB :
+			break ;
+
+		case GPIO_PORTC :
+			break ;
+	}
 
 }
+
 
 
