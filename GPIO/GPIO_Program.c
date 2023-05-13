@@ -65,7 +65,7 @@ void GPIO_voidInitInputPin(u8 Copy_u8PortID,u8 Copy_u8PinID,u8 Copy_u8PinMode){
 		GPIOA->ModeR &=~(3<<(Copy_u8PinID*2));
 
 		GPIOA->PUPDR&=~(3<<(Copy_u8PinID*2));
-		GPIOA->PUPDR&=~(Copy_u8PinMode<<(Copy_u8PinID*2));
+		GPIOA->PUPDR|=(Copy_u8PinMode<<(Copy_u8PinID*2));
 
 		break;
 	case GPIO_PORTB:
@@ -73,7 +73,7 @@ void GPIO_voidInitInputPin(u8 Copy_u8PortID,u8 Copy_u8PinID,u8 Copy_u8PinMode){
 		/*bit masking*/
 		GPIOB->ModeR &=~(3<<(Copy_u8PinID*2));
 		GPIOB->PUPDR&=~(3<<(Copy_u8PinID*2));
-		GPIOB->PUPDR&=~(Copy_u8PinMode<<(Copy_u8PinID*2));
+		GPIOB->PUPDR|=(Copy_u8PinMode<<(Copy_u8PinID*2));
 
 		break;
 	case GPIO_PORTC:
@@ -81,7 +81,7 @@ void GPIO_voidInitInputPin(u8 Copy_u8PortID,u8 Copy_u8PinID,u8 Copy_u8PinMode){
 		/*bit masking*/
 		GPIOC->ModeR &=~(3<<(Copy_u8PinID*2));
 		GPIOC->PUPDR&=~(3<<(Copy_u8PinID*2));
-		GPIOC->PUPDR&=~(Copy_u8PinMode<<(Copy_u8PinID*2));
+		GPIOC->PUPDR|=(Copy_u8PinMode<<(Copy_u8PinID*2));
 		break;
 	}
 }
