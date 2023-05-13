@@ -92,22 +92,57 @@ void GPIO_voidSetPinValue(u8 Copy_u8PortID,u8 Copy_u8PinID,u8 Copy_u8value){
 		/*set the direction of the pin to be output*/
 		/*bit masking*/
 		WR_BIT(GPIOA->ODR,Copy_u8PinID,Copy_u8value);
-
-
 		break;
 	case GPIO_PORTB:
 		/*set the direction of the pin to be output*/
 		/*bit masking*/
 		WR_BIT(GPIOB->ODR,Copy_u8PinID,Copy_u8value);
+
 		break;
 	case GPIO_PORTC:
 		/*set the direction of the pin to be output*/
 		/*bit masking*/
 		WR_BIT(GPIOC->ODR,Copy_u8PinID,Copy_u8value);
+
 		break;
 	}
 }
-void GPIO_void_8_PinValue(u8 Copy_u8PortID,u8 Copy_u8PinsStarts,u8 Copy_u8value){
+void GPIO_voidSetPinValueFAST(u8 Copy_u8PortID,u8 Copy_u8PinID,u8 Copy_u8value){
+	u32 Local_value;
+	switch (Copy_u8PortID){
+	case GPIO_PORTA:
+		/*using the BSRR to make  atomic instructions */
+		if(Copy_u8value==GPIO_OUTPUT_HIGH){
+			Local_value=(1<<Copy_u8PinID);
+		}
+		else if (Copy_u8value==GPIO_OUTPUT_LOW){
+			Local_value=(1<<(Copy_u8PinID+16));
+		}
+		GPIOA->BSRR=Local_value;
+		break;
+	case GPIO_PORTB:
+
+		if(Copy_u8value==GPIO_OUTPUT_HIGH){
+			Local_value=(1<<Copy_u8PinID);
+		}
+		else if (Copy_u8value==GPIO_OUTPUT_LOW){
+			Local_value=(1<<(Copy_u8PinID+16));
+		}
+		GPIOB->BSRR=Local_value;
+		break;
+	case GPIO_PORTC:
+		if(Copy_u8value==GPIO_OUTPUT_HIGH){
+			Local_value=(1<<Copy_u8PinID);
+		}
+		else if (Copy_u8value==GPIO_OUTPUT_LOW){
+			Local_value=(1<<(Copy_u8PinID+16));
+		}
+		GPIOC->BSRR=Local_value;
+		break;
+	}
+}
+/*This function set value for any 8 sequence pins in any port */
+void GPIO_void_8_SetPinValue(u8 Copy_u8PortID,u8 Copy_u8PinsStarts,u8 Copy_u8value){
 	switch(Copy_u8PortID){
 	case GPIO_PORTA:
 		/*set the VALue of the pin to be HIGH OR LOW*/
@@ -166,6 +201,36 @@ void GPIO_voidTGLPin(u8 Copy_u8PortID,u8 Copy_u8PinID){
 		/*set the direction of the pin to be output*/
 		/*bit masking*/
 		TGL_BIT(GPIOC->ODR,Copy_u8PinID);
+		break;
+	}
+}
+/*This fun to set the alternative function of GPIO*/
+void GPIO_voidSetAlternitiveFUNC(u8 Copy_u8PortID,u8 Copy_u8PinID,u8 Copy_u8AlternitiveFUN){
+
+	switch (Copy_u8PortID){
+	case GPIO_PORTA:
+		/*set the MOde of PIn TO BE ALternative */
+		/*bit masking*/
+		GPIOA->ModeR &=~(3<<(Copy_u8PinID*2));
+		GPIOA->ModeR |=(0b10<<(Copy_u8PinID*2));
+		GPIOA->AFRL&=~(0b1111 <<Copy_u8PinID*4);
+		GPIOA->AFRL|=(Copy_u8AlternitiveFUN <<Copy_u8PinID*4);
+		break;
+	case GPIO_PORTB:
+		/*set the MOde of PIn TO BE ALternative */
+		/*bit masking*/
+		GPIOB->ModeR &=~(3<<(Copy_u8PinID*2));
+		GPIOB->ModeR |=(0b10<<(Copy_u8PinID*2));
+		GPIOB->AFRL&=~(0b1111 <<Copy_u8PinID*4);
+		GPIOB->AFRL|=(Copy_u8AlternitiveFUN <<Copy_u8PinID*4);
+		break;
+	case GPIO_PORTC:
+		/*set the MOde of PIn TO BE ALternative */
+		/*bit masking*/
+		GPIOC->ModeR &=~(3<<(Copy_u8PinID*2));
+		GPIOC->ModeR |=(0b10<<(Copy_u8PinID*2));
+		GPIOC->AFRL&=~(0b1111 <<Copy_u8PinID*4);
+		GPIOC->AFRL|=(Copy_u8AlternitiveFUN <<Copy_u8PinID*4);
 		break;
 	}
 }
