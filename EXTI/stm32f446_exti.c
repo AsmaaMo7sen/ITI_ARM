@@ -26,22 +26,23 @@ void EXTI_Init(GPIO_RegDef_t *pGPIOx,uint8_t PinNumber,uint8_t InterruptPhase)
 
 	uint8_t RegisterNumber,PinValue,PortAsNumber;
 
-	//To determine which register from the SYSCFG EXTICR is the one we need
+	/*To determine which register from the SYSCFG EXTICR is the one we need*/
 	RegisterNumber=PinNumber/4;
 
-	//To determine which 4 bits will we need
+/*	To determine which 4 bits will we need*/
 	PinValue=PinNumber%4;
 
-	//This functions transfers the GPIOx value from Pointer address to a NUMBER
+/*	This functions transfers the GPIOx value from Pointer address to a NUMBER*/
 	PortAsNumber=GPIO_PORT_TO_NUMBER(pGPIOx);
 
-	//Enable the Clock peripheral for the SYSCFG
+/*	Enable the Clock peripheral for the SYSCFG*/
 	RCC_EnablePeripheral(APB2,APB2_SYSCFG);
 
-	//Set the GPIOx we will use in the EXTICR
+/*	Set the GPIOx we will use in the EXTICR*/
+	SYSCFG->EXTICR[RegisterNumber] &= ~(0xF<<PinValue*4);
 	SYSCFG->EXTICR[RegisterNumber] |= (PortAsNumber<<PinValue*4);
 
-	//Set the PIN Number used by the EXTI
+/*	Set the PIN Number used by the EXTI*/
 	EXTI->IMR |= (1<<PinNumber);
 
 }
@@ -52,4 +53,8 @@ void EXTI_ClearPending(uint8_t PinNumber){
 	if(EXTI->PR & (1<<PinNumber)){
 		EXTI->PR |= (1<<PinNumber);
 	}
+}
+
+void EXTI_SetSofwareINT(uint8_t PinNumber){
+	EXTI->SWIER |= (1<<PinNumber);
 }
