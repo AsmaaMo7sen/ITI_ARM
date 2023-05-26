@@ -64,29 +64,79 @@ void EXTI_SetSofwareINT(uint8_t PinNumber){
 	EXTI->SWIER |= (1<<PinNumber);
 }
 void EXTI0_IRQHandler(void){
+	EXTI_ClearPending(0);
 	GlobalCallBackINT[0]();
 }
 void EXTI1_IRQHandler(void){
-
+	EXTI_ClearPending(1);
 	GlobalCallBackINT[1]();
 }
 
 void EXTI2_IRQHandler(void){
+	EXTI_ClearPending(2);
 	GlobalCallBackINT[2]();
 }
 
 void EXTI3_IRQHandler(void){
+	EXTI_ClearPending(3);
 	GlobalCallBackINT[3]();
 }
 
 void EXTI4_IRQHandler(void){
+	EXTI_ClearPending(4);
 	GlobalCallBackINT[4]();
 }
 
 void EXTI9_5_IRQHandler(void){
 
+	if(EXTI->PR & (1<<9)){
+		EXTI_ClearPending(9);
+		GlobalCallBackINT[9]();
+	}
+	else if(EXTI->PR & (1<<8)){
+		EXTI_ClearPending(8);
+			GlobalCallBackINT[8]();
+		}
+	else if(EXTI->PR & (1<<7)){
+		EXTI_ClearPending(7);
+			GlobalCallBackINT[7]();
+		}
+	else if(EXTI->PR & (1<<6)){
+		EXTI_ClearPending(6);
+			GlobalCallBackINT[6]();
+		}
+	else if(EXTI->PR & (1<<5)){
+		EXTI_ClearPending(5);
+			GlobalCallBackINT[5]();
+		}
+
+
 }
 
 void EXTI15_10_IRQHandler(void){
-	GlobalCallBackINT[13]();
+
+	if(EXTI->PR & (1<<15)){
+		EXTI_ClearPending(15);
+		GlobalCallBackINT[15]();
+	}
+	else if(EXTI->PR & (1<<14)){
+		EXTI_ClearPending(14);
+		GlobalCallBackINT[14]();
+		}
+	else if(EXTI->PR & (1<<13)){
+		EXTI_ClearPending(13);
+		GlobalCallBackINT[13]();
+		}
+	else if(EXTI->PR & (1<<12)){
+		EXTI_ClearPending(12);
+		GlobalCallBackINT[12]();
+		}
+	else if(EXTI->PR & (1<<11)){
+		EXTI_ClearPending(11);
+		GlobalCallBackINT[11]();
+		}
+	else if(EXTI->PR & (1<<10)){
+		EXTI_ClearPending(10);
+		GlobalCallBackINT[10]();
+		}
 }
