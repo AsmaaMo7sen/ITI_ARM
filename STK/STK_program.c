@@ -12,6 +12,8 @@
 /* Array of global pointers to functions to set call back of SYSTICK*/
 void (*Global_PtrToFunc)(void) = NULL ;
 
+u8 Global_u8AsyncRepitition = SINGLE ;
+
 /*************************Functions' implementation***********************/
 
 void STK_voidInit(void)
@@ -49,13 +51,19 @@ void STK_voidDelaySync(u32 Copy_u32Delay_us)
 	STK->VAL  = 0 ;
 }
 
-void STK_voidDelayAsync(u32 Copy_u32Delay_us , void(*Copy_ptrToFunc)(void))
+void STK_voidDelayAsyncSingle(u32 Copy_u32Delay_us , void(*Copy_ptrToFunc)(void))
 {
-	/*(1)Enaable interrupt*/
+	/*Set global flag value*/
+	Global_u8AsyncRepitition = SINGLE ;
+
+	/*(1)Enable interrupt*/
 	SET_BIT(STK->CTRL , 1 ) ;
 
 	/*(2)Set lOAD register value to get the target delay*/
 	STK->LOAD = Copy_u32Delay_us / 2 ;
+
+	/*Reset value register*/
+	STK->VAL = 0 ;
 
 	/*(3)Set call back*/
 	if(Copy_ptrToFunc != NULL)
@@ -71,13 +79,70 @@ void STK_voidDelayAsync(u32 Copy_u32Delay_us , void(*Copy_ptrToFunc)(void))
 	SET_BIT(STK->CTRL , 0) ;
 }
 
+
+void STK_voidDelayAsyncPeriodic(u32 Copy_u32Delay_us , void(*Copy_ptrToFunc)(void))
+{
+	/*Set global flag value*/
+	Global_u8AsyncRepitition = PERIODIC ;
+
+	/*(1)Enable interrupt*/
+	SET_BIT(STK->CTRL , 1 ) ;
+
+	/*(2)Set lOAD register value to get the target delay*/
+	STK->LOAD = Copy_u32Delay_us / 2 ;
+
+	/*Reset value register*/
+	STK->VAL = 0 ;
+
+	/*(3)Set call back*/
+	if(Copy_ptrToFunc != NULL)
+	{
+		Global_PtrToFunc = Copy_ptrToFunc ;
+	}
+	else
+	{
+		/*do nothing*/
+	}
+
+	/*(4)Run systick*/
+	SET_BIT(STK->CTRL , 0) ;
+}
+
+u32 STK_u32GetRemainingTime(void)
+{
+	return STK->VAL ;
+}
+
+u32 STK_u32GetElapsedTime(void)
+{
+	return (STK->LOAD - STK->VAL) ;
+}
+
+
 /***********************************ISRs implementation********************************/
 
 /*systick ISR*/
 void Systick_Handler(void)
 {
-	/*Calling application function*/
-	Global_PtrToFunc();
+	switch(Global_u8AsyncRepitition)
+	{
+		case SINGLE :
+
+			/*Calling application function*/
+			Global_PtrToFunc();
+
+			/*Stop counting*/
+			CLR_BIT(STK->CTRL , 0);
+
+			break ;
+
+		case PERIODIC :
+
+			/*Calling application function*/
+			Global_PtrToFunc();
+
+			break ;
+	}
 }
 
 

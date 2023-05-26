@@ -19,4 +19,7 @@ typedef struct
 #define STK ((STK_t*)(0xE000E010))
 
 
+#define SINGLE    0
+#define PERIODIC  1
+
 #endif /* MCAL_STK_STK_PRIVATE_H_ */
