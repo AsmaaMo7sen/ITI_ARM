@@ -7,14 +7,18 @@
 
 #ifndef RCC_CFG_H_
 #define RCC_CFG_H_
+
+#include "RCC_private.h"
+
 /*This Macro is to Configure System Clock Soure */
-/*Available Configrations :
+/*Available Configurations :
 *HSI 
 *HSE_RC
 *HSE_CRYSTAL
 *PLL
 */
-#define SYSYTEM_CLK_SRC     HSI
+
+#define SYSTEM_CLK_SRC     HSI
 
 
 
